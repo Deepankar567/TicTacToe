@@ -1,0 +1,464 @@
+<!DOCTYPE html> 
+
+<html> 
+
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script type="text/javascript" src="bootstrap.js"></script>
+<link rel="stylesheet" href="bootstrap.css">
+<style>
+.container{
+height:300px;
+width:300px;
+position: absolute;
+top:50%;
+left:50%;
+transform:translate(-50%,-50%);
+}
+.row{
+height:100px;
+}
+.col{
+border: solid 3px #8936ff;
+display:flex;
+align-items:center;
+justify-content:center;
+font-size:60px;
+box-shadow:0px 0px 30px #8936ff;
+}
+#x{
+height:50px;
+width:200px;
+border:solid 1px pink;
+box-shadow:0px 0px 30px pink;
+z-index:1;
+position: absolute;
+top:30px;
+left:50%;
+transform:translate(-50%,0%);
+font-size:30px;
+text-align:center;
+color:white;
+background-color:red;
+}
+#o{
+height:50px;
+width:200px;
+border:solid 1px pink;
+box-shadow:0px 0px 30px pink;
+z-index:1;
+position: absolute;
+bottom:30px;
+left:50%;
+transform:translate(-50%,0%);
+font-size:30px;
+text-align:center;
+color:white;
+background-color:green;
+display:none;
+}
+#result{
+height:200px;
+width:300px;
+border:solid 1px orange;
+box-shadow:0px 0px 30px orange;
+background-color: orange;
+position: absolute;
+z-index:2;
+top:50%;
+left:50%;
+transform:translate(-50%,-50%);
+display:none;
+}
+#result1{
+background-color:pink;
+height:100px;
+width:200px;
+border:solid 1px pink;
+box-shadow:0px 0px 30px pink;
+font-size:40px;
+color:white;
+display:flex;
+align-items:center;
+justify-content:center;
+position: absolute;
+top:50%;
+left:50%;
+transform:translate(-50%,-50%);
+}
+#design{
+height:300px;
+width:100%;
+background-color: ;
+position: absolute;
+z-index:2;
+top:50%;
+left:50%;
+transform:translate(-50%,-50%);
+display:none;
+}
+
+#diamond1{
+height:20px;
+width:20px;
+border:solid 1px purple;
+box-shadow:0px 0px 10px purple;
+position: absolute;
+top:10%;
+left:47.5%;
+transform: skew(45deg,-45deg);
+}
+#diamond2{
+height:20px;
+width:20px;
+border:solid 1px #d834eb;
+box-shadow:0px 0px 10px #d834eb;
+position: absolute;
+top:20%;
+left:17.5%;
+transform: skew(45deg,-45deg);
+}
+#diamond3{
+height:20px;
+width:20px;
+border:solid 1px #34ebc6;
+box-shadow:0px 0px 10px #34ebc6;
+position: absolute;
+top:20%;
+left:77.5%;
+transform: skew(45deg,-45deg);
+}
+#diamond4{
+height:20px;
+width:20px;
+border:solid 1px #c0eb34;
+box-shadow:0px 0px 10px #c0eb34;
+position: absolute;
+top:50%;
+left:7.5%;
+transform: skew(45deg,-45deg);
+}
+#diamond5{
+height:20px;
+width:20px;
+border:solid 1px tan;
+box-shadow:0px 0px 10px tan;
+position: absolute;
+top:50%;
+left:87.5%;
+transform: skew(45deg,-45deg);
+}
+#diamond6{
+height:20px;
+width:20px;
+border:solid 1px green;
+box-shadow:0px 0px 10px green;
+position: absolute;
+top:83.5%;
+left:47.5%;
+transform: skew(45deg,-45deg);
+}
+#diamond7{
+height:20px;
+width:20px;
+border:solid 1px red;
+box-shadow:0px 0px 10px red;
+position: absolute;
+top:73.5%;
+left:17.5%;
+transform: skew(45deg,-45deg);
+}
+#diamond8{
+height:20px;
+width:20px;
+border:solid 1px pink;
+box-shadow:0px 0px 10px pink;
+position: absolute;
+top:73.5%;
+left:77.5%;
+transform: skew(45deg,-45deg);
+}
+#reset{
+display:none;
+}
+</style>
+</head> 
+<body>
+<div class="container" id="box">
+<div class="row">
+<div class="col" id="one" onclick="getid(this.id)"></div>
+<div class="col" id="two" onclick="getid(this.id)"></div>
+<div class="col" id="three" onclick="getid(this.id)"></div>
+</div>
+<div class="row">
+<div class="col" id="four" onclick="getid(this.id)"></div>
+<div class="col" id="five" onclick="getid(this.id)"></div>
+<div class="col" id="six" onclick="getid(this.id)"></div>
+</div>
+<div class="row">
+<div class="col" id="seven" onclick="getid(this.id)"></div>
+<div class="col" id="eight" onclick="getid(this.id)"></div>
+<div class="col" id="nine" onclick="getid(this.id)"></div>
+</div>
+</div>
+<div id="x">'X' TURN</div>
+<div id="o">'O' TURN</div>
+<div id="result"><div id="result1"></div></div>
+<div id="design">
+<div id="diamond1"></div>
+<div id="diamond2"></div>
+<div id="diamond3"></div>
+<div id="diamond4"></div>
+<div id="diamond5"></div>
+<div id="diamond6"></div>
+<div id="diamond7"></div>
+<div id="diamond8"></div>
+</div>
+<div id="reset" style="position:absolute;top:20px;right:20px;"><img style="height:50px;width:50px;" src="reset.png" onclick="document.location.href=''"></div>
+</body>
+<script type="text/javascript">
+//javascript
+function getid(clickedid){
+var id=clickedid;
+window.id=id;
+}
+//imp
+var i,y;
+var count=0;
+var x=document.querySelectorAll('.col');
+for (i = 0; i < x.length; i++) {
+    x[i].addEventListener('click',function(){
+    y=document.getElementById(id).innerHTML;
+    if(y==""){
+    count+=1;
+    var evod=count%2;
+    if(evod==0){
+    document.getElementById(id).innerHTML="o";
+    document.getElementById(id).style.color="green";
+    document.getElementById(id).style.textShadow="0px 0px 10px green";
+    document.getElementById("o").style.display="none";
+    document.getElementById("x").style.display="block";
+    }else{
+    document.getElementById(id).innerHTML="x";
+    document.getElementById(id).style.color="red";
+    document.getElementById(id).style.textShadow="0px 0px 10px red";
+    document.getElementById("x").style.display="none";
+    document.getElementById("o").style.display="block";
+    }
+    window.evod=evod;
+    }
+    });
+}
+//imp
+
+//input data with serial in console
+var d1,d2,d3,d4,d5,d6,d7,d8,d9;
+
+//...............
+
+var c1=0;
+document. getElementById("one").addEventListener('click',function(){
+c1+=1;
+if(c1==1){
+d1=document. getElementById("one").innerHTML;
+console.log("box1: "+d1);
+}
+});
+var c2=0;
+document. getElementById("two").addEventListener('click',function(){
+c2+=1;
+if(c2==1){
+d2=document. getElementById("two").innerHTML;
+console.log("box2: "+d2);
+}
+});
+var c3=0;
+document. getElementById("three").addEventListener('click',function(){
+c3+=1;
+if(c3==1){
+d3=document. getElementById("three").innerHTML;
+console.log("box3: "+d3);
+}
+});
+var c4=0;
+document. getElementById("four").addEventListener('click',function(){
+c4+=1;
+if(c4==1){
+d4=document. getElementById("four").innerHTML;
+console.log("box4: "+d4);
+}
+});
+var c5=0;
+document. getElementById("five").addEventListener('click',function(){
+c5+=1;
+if(c5==1){
+d5=document. getElementById("five").innerHTML;
+console.log("box5: "+d5);
+}
+});
+var c6=0;
+document. getElementById("six").addEventListener('click',function(){
+c6+=1;
+if(c6==1){
+d6=document. getElementById("six").innerHTML;
+console.log("box6: "+d6);
+}
+});
+var c7=0;
+document. getElementById("seven").addEventListener('click',function(){
+c7+=1;
+if(c7==1){
+d7=document. getElementById("seven").innerHTML;
+console.log("box7: "+d7);
+}
+});
+var c8=0;
+document. getElementById("eight").addEventListener('click',function(){
+c8+=1;
+if(c8==1){
+d8=document. getElementById("eight").innerHTML;
+console.log("box8: "+d8);
+}
+});
+var c9=0;
+document. getElementById("nine").addEventListener('click',function(){
+c9+=1;
+if(c9==1){
+d9=document. getElementById("nine").innerHTML;
+console.log("box9: "+d9);
+}
+});
+//input data with serial in console
+
+//Result of match
+var repeat=setInterval(abc,1);
+function abc(){
+//for x
+if(d1=="x" && d2=="x" && d3=="x"){
+document.getElementById("result1").innerHTML="X WIN";
+document.getElementById("result").style.display="block";
+document.getElementById("design").style.display="block";
+document.getElementById("reset").style.display="block";
+document.getElementById("o").style.display="none";
+}
+else if(d1=="x" && d4=="x" && d7=="x"){
+document.getElementById("result1").innerHTML="X WIN";
+document.getElementById("result").style.display="block";
+document.getElementById("design").style.display="block";
+document.getElementById("reset").style.display="block";
+document.getElementById("o").style.display="none";
+}
+else if(d7=="x" && d8=="x" && d9=="x"){
+document.getElementById("result1").innerHTML="X WIN";
+document.getElementById("result").style.display="block";
+document.getElementById("design").style.display="block";
+document.getElementById("reset").style.display="block";
+document.getElementById("o").style.display="none";
+}
+else if(d3=="x" && d6=="x" && d9=="x"){
+document.getElementById("result1").innerHTML="X WIN";
+document.getElementById("result").style.display="block";
+document.getElementById("design").style.display="block";
+document.getElementById("reset").style.display="block";
+document.getElementById("o").style.display="none";
+}
+else if(d1=="x" && d5=="x" && d9=="x"){
+document.getElementById("result1").innerHTML="X WIN";
+document.getElementById("result").style.display="block";
+document.getElementById("design").style.display="block";
+document.getElementById("reset").style.display="block";
+document.getElementById("o").style.display="none";
+}
+else if(d3=="x" && d5=="x" && d7=="x"){
+document.getElementById("result1").innerHTML="X WIN";
+document.getElementById("result").style.display="block";
+document.getElementById("design").style.display="block";
+document.getElementById("reset").style.display="block";
+document.getElementById("o").style.display="none";
+}
+else if(d2=="x" && d5=="x" && d8=="x"){
+document.getElementById("result1").innerHTML="X WIN";
+document.getElementById("result").style.display="block";
+document.getElementById("design").style.display="block";
+document.getElementById("reset").style.display="block";
+document.getElementById("o").style.display="none";
+}
+else if(d4=="x" && d5=="x" && d6=="x"){
+document.getElementById("result1").innerHTML="X WIN";
+document.getElementById("result").style.display="block";
+document.getElementById("design").style.display="block";
+document.getElementById("reset").style.display="block";
+document.getElementById("o").style.display="none";
+}
+//for o
+else if(d1=="o" && d2=="o" && d3=="o"){
+document.getElementById("result1").innerHTML="O WIN";
+document.getElementById("result").style.display="block";
+document.getElementById("design").style.display="block";
+document.getElementById("reset").style.display="block";
+document.getElementById("x").style.display="none";
+}
+else if(d1=="o" && d4=="o" && d7=="o"){
+document.getElementById("result1").innerHTML="O WIN";
+document.getElementById("result").style.display="block";
+document.getElementById("design").style.display="block";
+document.getElementById("reset").style.display="block";
+document.getElementById("x").style.display="none";
+}
+else if(d7=="o" && d8=="o" && d9=="o"){
+document.getElementById("result1").innerHTML="O WIN";
+document.getElementById("result").style.display="block";
+document.getElementById("design").style.display="block";
+document.getElementById("reset").style.display="block";
+document.getElementById("x").style.display="none";
+}
+else if(d3=="o" && d6=="o" && d9=="o"){
+document.getElementById("result1").innerHTML="O WIN";
+document.getElementById("result").style.display="block";
+document.getElementById("design").style.display="block";
+document.getElementById("reset").style.display="block";
+document.getElementById("x").style.display="none";
+}
+else if(d1=="o" && d5=="o" && d9=="o"){
+document.getElementById("result1").innerHTML="O WIN";
+document.getElementById("result").style.display="block";
+document.getElementById("design").style.display="block";
+document.getElementById("reset").style.display="block";
+document.getElementById("x").style.display="none";
+}
+else if(d3=="o" && d5=="o" && d7=="o"){
+document.getElementById("result1").innerHTML="O WIN";
+document.getElementById("result").style.display="block";
+document.getElementById("design").style.display="block";
+document.getElementById("reset").style.display="block";
+document.getElementById("x").style.display="none";
+}
+else if(d2=="o" && d5=="o" && d8=="o"){
+document.getElementById("result1").innerHTML="O WIN";
+document.getElementById("result").style.display="block";
+document.getElementById("design").style.display="block";
+document.getElementById("reset").style.display="block";
+document.getElementById("x").style.display="none";
+}
+else if(d4=="o" && d5=="o" && d6=="o"){
+document.getElementById("result1").innerHTML="O WIN";
+document.getElementById("result").style.display="block";
+document.getElementById("design").style.display="block";
+document.getElementById("reset").style.display="block";
+document.getElementById("x").style.display="none";
+}
+//for draw
+else if(d1!==undefined && d2!==undefined && d3!==undefined && d4!==undefined && d5!==undefined && d6!==undefined && d7!==undefined && d8!==undefined && d9!==undefined){
+document.getElementById("result1").innerHTML="TIE";
+document.getElementById("result").style.display="block";
+document.getElementById("design").style.display="block";
+document.getElementById("reset").style.display="block";
+document.getElementById("x").style.display="none";
+document.getElementById("o").style.display="none";
+}
+}
+//Result of match
+
+
+</script>
+</html>
